@@ -1,7 +1,8 @@
 import React from 'react';
 import {Switch,BrowserRouter as Router,Route} from "react-router-dom";
 import './App.css';
-import {LoginPage} from "./components/LoginPage/LoginPage";
+import {LoginForm} from "./components/LoginPage/LoginForm";
+import {RegisterForm} from "./components/LoginPage/RegisterForm";
 import {HomePage} from "./components/Homepage/HomePage";
 import {PrivateRoute} from "./components/PrivateRoute";
 
@@ -11,7 +12,8 @@ function App() {
         <div className="App">
             <Switch>
                 <PrivateRoute exact component={HomePage} path='/' />
-                <Route exact component={LoginPage} path='/login'/>
+                <Route exact component={LoginForm} path='/login'/>
+                <Route exact component={RegisterForm} path='/register'/>
             </Switch>
         </div>
      </Router>

@@ -10,7 +10,7 @@ const Container = styled.div`
     
 `;
 
-export const LoginPage = () => {
+export const LoginForm = () => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const dispatch = useDispatch();
     const [state,setState] = useState({

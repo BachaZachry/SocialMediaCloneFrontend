@@ -23,9 +23,17 @@ const authSlice = createSlice({
             state.isAuthenticated = true;
             state.user = action.payload;
             localStorage.setItem('token',action.payload.token);
-        }
+        },
+        registerSuccess: (state,action) => {
+            state.isLoading = false;
+            state.isAuthenticated = true;
+            state.user = action.payload;
+            localStorage.setItem('token',action.payload.token);
+        },
+
+
     }
 });
 
-export const {userLoading,userLoaded,loginSuccess} = authSlice.actions;
+export const {userLoading,userLoaded,loginSuccess,registerSuccess} = authSlice.actions;
 export default authSlice.reducer
