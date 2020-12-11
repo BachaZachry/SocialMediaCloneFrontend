@@ -6,6 +6,7 @@ import {RegisterForm} from "./components/LoginPage/RegisterForm";
 import {HomePage} from "./components/Homepage/HomePage";
 import {PrivateRoute} from "./components/PrivateRoute";
 
+
 function App() {
   return (
      <Router>
