@@ -1,5 +1,6 @@
 import {api} from './../../api/index';
 import {userLoading,userLoaded,loginSuccess,registerSuccess} from './authSlice';
+import axios from "axios";
 
 export const loadUser = () => async dispatch => {
     dispatch(userLoading);
@@ -42,4 +43,12 @@ export const register = ({first_name,last_name,email,username,password}) => asyn
         return console.error(e.message);
     }
 
-}
+};
+export const googleLogin = async (accesstoken) => {
+
+    let res = await axios.post('http://localhost:8000/user/rest-auth/google/', {
+        access_token: accesstoken,
+    });
+    console.log(res);
+    return await res.status;
+};

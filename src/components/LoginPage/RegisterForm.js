@@ -8,8 +8,9 @@ import {
     TextInsidePassword, TextInsideUsername,
     TextInsideEmail, TextInsideFName, TextInsideLName,
     Label, ButtonInside, TextAbove, TextInside,
-    SubmitButton, TextInsidePasswordConf, DoubleInputs
+    SubmitButton, TextInsidePasswordConf, DoubleInputs, GoogleButton, FormContainerRegister
 } from "./authStyles";
+import googleLogin from "./googleLogin";
 
 export const RegisterForm = () => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
@@ -37,6 +38,10 @@ export const RegisterForm = () => {
             // Returning an error
         }
     };
+    async function responseGoogle (response) {
+        await googleLogin(response.accessToken)
+        await setTimeout(() => window.location.reload(), 1000)
+    }
     if (isAuthenticated) {
             return <Redirect to="/" />;
     };
@@ -51,7 +56,7 @@ export const RegisterForm = () => {
                 </ButtonInside>
             </BlueChange>
             <Container>
-            <FormContainer onSubmit={signUp}>
+            <FormContainerRegister onSubmit={signUp}>
                 <TextAbove>Login to Your Account </TextAbove>
                 <Inputs>
                 <Label>
@@ -90,7 +95,11 @@ export const RegisterForm = () => {
                 </Label>
                 </Inputs>
                 <SubmitButton type='submit'>Sign Up</SubmitButton>
-            </FormContainer>
+                <GoogleButton clientId="702390539600-hc383uuijppphb0fm6ir78rgnb2dql85.apps.googleusercontent.com"
+                         buttonText="Log in with Google"
+                         onSuccess={responseGoogle}
+                         onFailure={responseGoogle}/>
+            </FormContainerRegister>
             </Container>
         </MainContainer>
     )

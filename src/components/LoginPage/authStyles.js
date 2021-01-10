@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import GoogleLogin from 'react-google-login'
 
 export const MainContainer = styled.div`
     display:flex;
@@ -27,6 +28,9 @@ export const FormContainer = styled.form`
     border: 1px rgba(var(--b6a,219,219,219),1);
     background-color:#FCFDFE;
     box-sizing:border-box;
+`;
+export const FormContainerRegister = styled(FormContainer)`
+    height:60vh;
 `;
 export const Inputs = styled.div`
     margin: 0 50px 15px;
@@ -136,4 +140,15 @@ export const ButtonInside = styled(SubmitButton)`
     & a:visited{
     color:#748AF0;
     }
+`;
+
+export const GoogleButton = styled(GoogleLogin)`
+    margin-top:15px;
+    width:340px;
+    border-radius:7px;
+    border: 1px solid rgba(var(--ca6,219,219,219),1);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-color:rgba(var(--b3f,250,250,250),1);
 `;

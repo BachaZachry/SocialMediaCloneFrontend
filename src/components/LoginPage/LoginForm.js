@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import googleLogin from "../../features/auth/auth";
 import {login} from "../../features/auth/auth";
 import {Redirect,Link} from 'react-router-dom';
 import {useDispatch,useSelector} from "react-redux";
@@ -7,7 +8,7 @@ import {MainContainer,Container,BlueChange,
        FormContainer,Inputs,UsernameInput,
         TextInsidePassword,TextInsideUsername,
         Label,ButtonInside,TextAbove,TextInside,
-        SubmitButton} from "./authStyles";
+        SubmitButton,GoogleButton} from "./authStyles";
 
 
 export const LoginForm = () => {
@@ -31,6 +32,10 @@ export const LoginForm = () => {
     if (isAuthenticated) {
             return <Redirect to="/" />;
   };
+    async function responseGoogle (response) {
+        await googleLogin(response.accessToken)
+        await setTimeout(() => window.location.reload(), 1000)
+    }
     return (
         <MainContainer>
             <BlueChange>
@@ -57,6 +62,10 @@ export const LoginForm = () => {
                 </Label>
                 </Inputs>
                 <SubmitButton type='submit'>Login</SubmitButton>
+                <GoogleButton clientId="702390539600-hc383uuijppphb0fm6ir78rgnb2dql85.apps.googleusercontent.com"
+                         buttonText="Log in with Google"
+                         onSuccess={responseGoogle}
+                         onFailure={responseGoogle}/>
             </FormContainer>
             </Container>
         </MainContainer>
