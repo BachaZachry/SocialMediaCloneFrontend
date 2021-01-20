@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import googleLogin from "../../features/auth/auth";
-import {login} from "../../features/auth/auth";
+import {login,googleLogin} from "../../features/auth/auth";
 import {Redirect,Link} from 'react-router-dom';
 import {useDispatch,useSelector} from "react-redux";
 import {MainContainer,Container,BlueChange,
@@ -33,8 +32,7 @@ export const LoginForm = () => {
             return <Redirect to="/" />;
   };
     async function responseGoogle (response) {
-        await googleLogin(response.accessToken)
-        await setTimeout(() => window.location.reload(), 1000)
+        dispatch(await googleLogin(response.accessToken))
     }
     return (
         <MainContainer>

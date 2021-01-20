@@ -10,7 +10,7 @@ import {
     Label, ButtonInside, TextAbove, TextInside,
     SubmitButton, TextInsidePasswordConf, DoubleInputs, GoogleButton, FormContainerRegister
 } from "./authStyles";
-import googleLogin from "./googleLogin";
+import {googleLogin} from "../../features/auth/auth";;
 
 export const RegisterForm = () => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
@@ -39,8 +39,7 @@ export const RegisterForm = () => {
         }
     };
     async function responseGoogle (response) {
-        await googleLogin(response.accessToken)
-        await setTimeout(() => window.location.reload(), 1000)
+        await googleLogin(response.accessToken);
     }
     if (isAuthenticated) {
             return <Redirect to="/" />;
