@@ -51,27 +51,4 @@ export const googleLogin = (accesstoken) => async dispatch => {
         api.defaults.headers['Authorization'] = 'Token ' + response.data.token
     })
 
-
-    // try {
-    //     await axios.post('http://localhost:8000/user/rest-auth/google/',{
-    //         accesstoken: accesstoken,
-    //     } )
-    //         .then((response) => {
-    //             dispatch(loginSuccess(response.data));
-    //             api.defaults.headers['Authorization'] = 'Token ' + response.data.token;
-    //         })
-    // }
-    // catch (e) {
-    //     return console.error(e.message);
-    // }
 };
-
-// export const getPosts = () => async dispatch => {
-//     try {
-//         await api.post('post/postupdate/')
-//             .then((response) => dispatch(userLoaded(response.data)));
-//     }
-//     catch (e) {
-//         return console.error(e.message);
-//     }
-// };
