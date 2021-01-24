@@ -1,121 +1,232 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-import {IoIosSearch,FaUserFriends,IoNotificationsSharp
-        ,RiArrowDropDownLine} from 'react-icons/all';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import InputBase from '@material-ui/core/InputBase';
+import Badge from '@material-ui/core/Badge';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+const MainContainer = styled.div`
+  flex-grow:1;
+`;
+const AppBarContainer = styled(AppBar)`
+  background-color:#FFFFFF !important;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px !important;
+`;  
+const ToolbarContainer = styled(Toolbar)`
 
-export const Navbar = styled.div`
-    height:66px;
-    background-color:#F6F6F6
+`;
+const IconButtonContainer = styled(IconButton)`
+  margin-right:16px !important;
+`;
+const TypographyContainer = styled(Typography)`
+  display:block;
+  color:black;
+  @media (max-width:600px) {
+    display:none;
+  }
+`;
+const Searchbar = styled.div`
+  position:relative;
+  border-radius:15px;
+  background-color:${fade("#fff",0.15)};
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  margin-right:16px;
+  color:black;
+  margin-left:24px;
+  width:auto;
+  @media (max-width:600px){
     width:100%;
-    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
-    // box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
-    // box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    justify-content:center;
+    margin-left:0;
+  }
 `;
-export const LogoContainer = styled.div`
-    flex:1 0 20%;
+const SearchiconContainer = styled.div`
+  height:100%;
+  position:absolute;
+  padding:0 16px;
+  pointer-events:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 `;
-export const Logo = styled.h2`
-    font-size:16px;
-    font-weight:600;
+const InputBaseContainer = styled(InputBase)`
+  width:40ch;
+  color:inherit;
+  aria-label:search;
+  display:inline-flex;
+  @media (max-width:960px){
+    width:100%;
+  }
+  & input {
+    padding:8px 8px 8px 0px;
+    padding-left: calc(1em + 32px);
+    transition:width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+`;
+const DesktopSection = styled.div`
+  display:flex;
+  @media (max-width:960px){
+    display:none;
+  }
+  & span .MuiBadge-root {
     color:#0D6CE7;
-    text-align:center;
+  }
+  & svg.MuiSvgIcon-root {
+    color:#0D6CE7;
+  }
 `;
-export const SearchbarContainer = styled.div`
-    flex:1 0 30%;
-    height:60%;
+const MobileSection = styled.div`
+  display:none;
+  @media (max-width:960px){
     display:flex;
-    justify-content:center;
+  }
+  & span {
+    color:#0D6CE7;
+  }
 `;
-export const Searchbar = styled.div`
-    height:100%;
-    width:80%;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-    border-radius:15px;
-    background-color:#FBFBFB;
-    display:flex;
-    align-items:center;
-    & span {
-        color:rgba(var(--f52,142,142,142),1);
-        margin:0 7px 0 0px;
-    }
-    & span.icon {
-        margin-top:7px;
-        margin-left:20px;
-    }
-`; 
-export const IoSearch = styled(IoIosSearch)`
-color:#7F7F7F;
-`;
-export const Links = styled.div`
-    display:flex;
-    flex-direction:row;
-    flex:1 0 50%;
-`;
-export const WrittenLinks = styled.div`
-    flex:1 0 80%;
-    display:flex;
-    justify-content:flex-end;
-`;
-export const LinkName = styled.a`
-    font-weight:600;
-    font-size:16px;
-    text-decoration:none;
-    cursor:pointer;
-    color:#1877F2;
-    margin:15px;
-    &.last{
-        padding-right:25px;
-    }
-`;
-export const IconLinks = styled.div`
-    flex:1 0 20%;
-    display:flex;
-    align-items:center;
-    color:rgba(var(--f52,142,142,142),.9);
-    & svg {
-        margin:10px;
-    }
-`;
-export const IoNotification = styled(IoNotificationsSharp)`
-    color: #0D6CE7;
-`;
-
 export const NavBar = () => {
-    return (
-        <Navbar>
-            <LogoContainer>
-                <Logo>
-                    Social Media
-                </Logo>
-            </LogoContainer>
-            <SearchbarContainer>
-                <Searchbar>
-                    <span className="icon"><IoSearch size={18}/></span>
-                    <span>Search</span>
-                </Searchbar>
-            </SearchbarContainer>
-            <Links>
-                <WrittenLinks>
-                    <LinkName>
-                        Profile
-                    </LinkName>
-                    <LinkName>
-                        Home
-                    </LinkName>
-                    <LinkName className="last">
-                        Create  
-                    </LinkName>
-                </WrittenLinks>
-                <IconLinks>
-                    <FaUserFriends size={21}/>
-                    <IoNotification size={21}/>
-                    <RiArrowDropDownLine size={32}/>
-                </IconLinks>
-            </Links>
-        </Navbar>
-    )
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+  const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    </Menu>
+  );
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <IconButton aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="secondary">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton aria-label="show 11 new notifications" color="inherit">
+          <Badge badgeContent={11} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
+  );
+  
+  return (
+    <MainContainer>
+      <AppBarContainer position="static">
+          <ToolbarContainer>
+            <IconButtonContainer
+            edge="start"
+            aria-label="open drawer"
+            >
+              <MenuIcon />
+            </IconButtonContainer>
+            <TypographyContainer variant="h6" noWrap>
+              Social Media
+            </TypographyContainer>
+            <Searchbar>
+                <SearchiconContainer>
+                  <SearchIcon></SearchIcon>
+                </SearchiconContainer>
+                <InputBaseContainer placeholder="Search..." inputProps={{ 'aria-label': 'search' }}/>
+            </Searchbar>
+            <MainContainer/>
+            <DesktopSection>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <MailIcon />
+              </Badge>
+            </IconButton>
+            <IconButton aria-label="show 17 new notifications" color="inherit">
+              <Badge badgeContent={17} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            </DesktopSection>
+            <MobileSection>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+            </MobileSection>
+          </ToolbarContainer>
+      </AppBarContainer>
+      {renderMobileMenu}
+      {renderMenu}
+    </MainContainer>
+  )
 }
