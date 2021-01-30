@@ -8,19 +8,24 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
+import Settings from '@material-ui/icons/Settings';
+import Avatar from '@material-ui/core/Avatar';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Home from '@material-ui/icons/Home';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import MenuIcon from '@material-ui/icons/Menu';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+
 const MainContainer = styled.div`
   flex-grow:1;
 `;
 const AppBarContainer = styled(AppBar)`
   background-color:#FFFFFF !important;
   box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px !important;
+  z-index:2;
 `;  
 const ToolbarContainer = styled(Toolbar)`
 
@@ -30,7 +35,7 @@ const IconButtonContainer = styled(IconButton)`
 `;
 const TypographyContainer = styled(Typography)`
   display:block;
-  color:black;
+  color:#0D6CE7;
   @media (max-width:600px) {
     display:none;
   }
@@ -38,11 +43,12 @@ const TypographyContainer = styled(Typography)`
 const Searchbar = styled.div`
   position:relative;
   border-radius:15px;
-  background-color:${fade("#fff",0.15)};
+  // background-color:${fade("#fff",0.15)};
+  background-color:#FBFBFB;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
   margin-right:16px;
-  color:black;
-  margin-left:24px;
+  color:#7F7F7F;
+  margin-left:32px;
   width:auto;
   @media (max-width:600px){
     width:100%;
@@ -78,11 +84,18 @@ const DesktopSection = styled.div`
     display:none;
   }
   & span .MuiBadge-root {
-    color:#0D6CE7;
+    color:rgba(var(--d69,0,149,246),1);
   }
   & svg.MuiSvgIcon-root {
-    color:#0D6CE7;
+    color:rgba(var(--d69,0,149,246),1);
   }
+`;
+const AvatarContainer = styled(Avatar)`
+      background-color:rgba(var(--d69,0,149,246),1) !important;
+      color:white !important;
+      width:24px !important;
+      height:24px !important;
+      font-size:1rem !important;
 `;
 const MobileSection = styled.div`
   display:none;
@@ -93,12 +106,12 @@ const MobileSection = styled.div`
     color:#0D6CE7;
   }
 `;
-export const NavBar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+export const NavBar = (props) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+  const {username} = props;
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -174,15 +187,16 @@ export const NavBar = () => {
     <MainContainer>
       <AppBarContainer position="static">
           <ToolbarContainer>
-            <IconButtonContainer
+            {/* <IconButtonContainer
             edge="start"
             aria-label="open drawer"
             >
               <MenuIcon />
-            </IconButtonContainer>
+            </IconButtonContainer> */}
             <TypographyContainer variant="h6" noWrap>
               Social Media
             </TypographyContainer>
+            <MainContainer/>
             <Searchbar>
                 <SearchiconContainer>
                   <SearchIcon></SearchIcon>
@@ -191,37 +205,42 @@ export const NavBar = () => {
             </Searchbar>
             <MainContainer/>
             <DesktopSection>
-            <IconButton aria-label="show 4 new mails" color="inherit">
+            {/* <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />
               </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            </IconButton> */}
+              <IconButton aria-label="home" color="inherit">
+                <Badge color="secondary">
+                  <Home/>
+                </Badge>
+              </IconButton>
+              <IconButton aria-label="profile" color="inherit">
+                <Badge color="secondary">
+                  <AvatarContainer>{username.charAt(0).toUpperCase() }</AvatarContainer>
+                </Badge>
+              </IconButton>
+              <IconButton aria-label="show 17 new notifications" color="inherit">
+                <Badge badgeContent={17} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton aria-label="profile" color="inherit">
+                <Badge color="secondary">
+                  <Settings></Settings>
+                </Badge>
+              </IconButton>
             </DesktopSection>
             <MobileSection>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
             </MobileSection>
           </ToolbarContainer>
       </AppBarContainer>

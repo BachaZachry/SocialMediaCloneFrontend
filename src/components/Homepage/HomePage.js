@@ -3,22 +3,34 @@ import styled from 'styled-components';
 import { useDispatch ,useSelector} from 'react-redux';
 import {loadUser} from "../../features/auth/auth";
 import {getPosts} from "../../features/posts/post";
-import {NavBar} from '../utils/NavBar'
+import {HomePosts} from "./HomePosts";
+import {NavBar} from '../utils/NavBar';
+
 
 const Main = styled.div`
     display:flex;
+    flex-direction:column;
+`;
+const Container = styled.div`
+    display:flex;
+    flex-direction:row;
+    width:100%;
 `;
 export const HomePage = () => {
     const User = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
-    const [username,setUsername] = useState(User.username);
+    const username = User.username;
+    // const profilePic = User.profile_pic.split('?')[0];
     useEffect(() => {
         dispatch(loadUser());
     },[username]);
 
     return(
         <Main>
-            <NavBar/>
+            <NavBar username={username}/>
+            <Container>
+                <HomePosts/>
+            </Container>
         </Main>
     )
 }
